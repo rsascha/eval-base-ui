@@ -5,9 +5,25 @@ type SelectItemProps = {
   value: string;
 };
 
+/**
+ * @example
+ * ```tsx
+ * <SelectItem value="1">Option 1</SelectItem>
+ * ```
+ */
 export function SelectItem({ children, value }: SelectItemProps) {
   return (
-    <Select.Item value={value}>
+    <Select.Item
+      value={value}
+      className={`
+        flex
+        items-center
+        gap-2
+        p-2
+        rounded-md
+        hover:bg-gray-200
+        focus:bg-gray-200`}
+    >
       <Select.ItemIndicator>
         <CheckIcon />
       </Select.ItemIndicator>

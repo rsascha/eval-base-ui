@@ -11,8 +11,8 @@ type SelectRootProps = {
 /**
  * @example
  * ```tsx
- * <Select.Root>
- *  <Select.Item>123</Select.Item>
+ * <SelectRoot defaultValue="1" placeholder="Select an option">
+ *  <SelectItem value="1">Option 1</SelectItem>
  * ```
  */
 export function SelectRoot({
@@ -22,7 +22,13 @@ export function SelectRoot({
 }: SelectRootProps) {
   return (
     <Select.Root defaultValue={defaultValue}>
-      <Select.Trigger>
+      <Select.Trigger
+        className={`
+          flex
+          items-center
+          justify-between
+          `}
+      >
         <Select.Value placeholder={placeholder} />
         <Select.Icon>
           <ChevronUpDownIcon />
