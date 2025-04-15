@@ -3,10 +3,10 @@ import { Select } from "./components/Select";
 function App() {
   return (
     <>
-      <Select.Root>
-        <Select.Item>123</Select.Item>
-        <Select.Item>456</Select.Item>
-        <Select.Item>789</Select.Item>
+      <Select.Root placeholder="Select an item">
+        <Select.Item value="123">123</Select.Item>
+        <Select.Item value="456">456</Select.Item>
+        <Select.Item value="789">789</Select.Item>
       </Select.Root>
     </>
   );
