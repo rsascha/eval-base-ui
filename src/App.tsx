@@ -1,14 +1,32 @@
-import { Select } from "./components/Select";
+import { MultiSelect } from "./components/MultiSelect";
 
 function App() {
   return (
     <>
-      <div className="w-1/3">
-        <Select.Root placeholder="Select an item">
-          <Select.Item value="1">123</Select.Item>
-          <Select.Item value="2">456</Select.Item>
-          <Select.Item value="3">789</Select.Item>
-        </Select.Root>
+      <div>
+        <MultiSelect.Root>
+          <MultiSelect.Item>
+            <div className="flex items-center gap-2">
+              <div>*</div>
+              <div>Item 1</div>
+              <div>XYZ</div>
+            </div>
+          </MultiSelect.Item>
+          <MultiSelect.Item>
+            <div className="flex items-center gap-2">
+              <div>**</div>
+              <div>Item 2</div>
+              <div>XYZ</div>
+            </div>
+          </MultiSelect.Item>{" "}
+          <MultiSelect.Item>
+            <div className="flex items-center gap-2">
+              <div>***</div>
+              <div>Item 3</div>
+              <div>XYZ</div>
+            </div>
+          </MultiSelect.Item>
+        </MultiSelect.Root>
       </div>
     </>
   );

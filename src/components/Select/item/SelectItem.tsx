@@ -22,7 +22,8 @@ export function SelectItem({ children, value }: SelectItemProps) {
         p-2
         rounded-md
         hover:bg-gray-200
-        focus:bg-gray-200`}
+        focus:bg-gray-200
+        `}
     >
       <Select.ItemIndicator>
         <CheckIcon />
