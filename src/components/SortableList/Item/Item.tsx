@@ -1,13 +1,13 @@
 import { useSortable } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
-import { ReactNode } from "react";
+import { ReactElement, ReactNode } from "react";
 
 type ItemProps = {
-  sortableIndex?: number;
+  sortableIndex: number;
   children: ReactNode;
 };
 
-export function Item({ sortableIndex = 0, children }: ItemProps) {
+export function Item({ sortableIndex, children }: ItemProps) {
   const { attributes, listeners, setNodeRef, transform, transition } =
     useSortable({ id: sortableIndex });
 
@@ -22,3 +22,5 @@ export function Item({ sortableIndex = 0, children }: ItemProps) {
     </div>
   );
 }
+
+export type ItemType = ReactElement<React.ComponentProps<typeof Item>>;

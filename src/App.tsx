@@ -7,14 +7,14 @@ function App() {
       <SortableDemo />
       <div>
         <SortableList.Root>
-          <SortableList.Item>
+          <SortableList.Item sortableIndex={0}>
             <div className="flex items-center gap-2">
               <div>*</div>
               <div>Item 1</div>
               <div>XYZ</div>
             </div>
           </SortableList.Item>
-          <SortableList.Item>
+          <SortableList.Item sortableIndex={1}>
             <div className="flex items-center gap-2">
               <div>*</div>
               <div>Item 1</div>

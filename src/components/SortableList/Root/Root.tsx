@@ -13,19 +13,18 @@ import {
   sortableKeyboardCoordinates,
   verticalListSortingStrategy,
 } from "@dnd-kit/sortable";
-import { cloneElement, isValidElement, ReactElement, useState } from "react";
+import { cloneElement, isValidElement, useState } from "react";
+import { ItemType } from "../Item";
 
 type MultiSelectRootProps = {
-  children: React.ReactNode;
+  children: ItemType[];
 };
 
 export function Root({ children }: MultiSelectRootProps) {
-  let length = 1;
-  if (Array.isArray(children)) {
-    length = children.length;
-  }
-  const array = Array.from({ length }, (_, i) => i + 1);
-  const [items, setItems] = useState(array);
+  const initSortableIndexItems = children.map((c) => c.props.sortableIndex);
+  const [sortableIndexItems, setSortableIndexItems] = useState(
+    initSortableIndexItems
+  );
   const sensors = useSensors(
     useSensor(PointerSensor),
     useSensor(KeyboardSensor, {
@@ -38,26 +37,21 @@ export function Root({ children }: MultiSelectRootProps) {
     if (!active) return;
     if (!over) return;
     if (active.id !== over.id) {
-      setItems((items) => {
-        const aId = Number(active.id);
-        const oId = Number(over.id);
-        const oldIndex = items.indexOf(aId);
-        const newIndex = items.indexOf(oId);
+      setSortableIndexItems((items) => {
+        const oldIndex = items.indexOf(Number(active.id));
+        const newIndex = items.indexOf(Number(over.id));
         return arrayMove(items, oldIndex, newIndex);
       });
     }
   }
 
-  function getElement(index: number) {
-    if (!Array.isArray(children)) return null;
-    const child = children[index - 1] as ReactElement<{
-      sortableIndex: number;
-    }>;
+  function getItemElement(sortableIndex: number) {
+    const child = children.find((c) => c.props.sortableIndex === sortableIndex);
     if (!child) return null;
     if (!isValidElement(child)) return null;
     const elem = cloneElement(child, {
-      key: index,
-      sortableIndex: index,
+      key: sortableIndex,
+      sortableIndex,
     });
     return elem;
   }
@@ -72,8 +66,15 @@ export function Root({ children }: MultiSelectRootProps) {
       collisionDetection={closestCenter}
       onDragEnd={handleDragEnd}
     >
-      <SortableContext items={items} strategy={verticalListSortingStrategy}>
-        <div>{items.map((index) => getElement(index))}</div>
+      <SortableContext
+        items={sortableIndexItems}
+        strategy={verticalListSortingStrategy}
+      >
+        <div>
+          {sortableIndexItems.map((sortableIndex) =>
+            getItemElement(sortableIndex)
+          )}
+        </div>
       </SortableContext>
     </DndContext>
   );
