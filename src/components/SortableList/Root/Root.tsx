@@ -24,9 +24,11 @@ type MultiSelectRootProps = {
 /**
  * Renders Fragment of the sortable list.
  * @example
+ * ```
  * <SortableList.Root onChange={(e) => console.debug(e)}>
  *  <SortableList.Item id={0}>
  *   <>Item 1</>
+ * ```
  */
 export function Root({ children, onChange }: MultiSelectRootProps) {
   const initSortableIds = children.map((c) => c.props.id);

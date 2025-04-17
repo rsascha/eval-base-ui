@@ -10,9 +10,11 @@ type ItemProps = {
 /**
  * Renders a div.
  * @example
+ * ```
  * <SortableList.Item id={5}>
  *  <>Item 2</>
  * </SortableList.Item>
+ * ```
  */
 export function Item({ id, children }: ItemProps) {
   const { attributes, listeners, setNodeRef, transform, transition } =
