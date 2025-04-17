@@ -29,7 +29,7 @@ export function Item({ id, children }: ItemProps) {
       style={style}
       {...attributes}
       {...listeners}
-      className="cursor-pointer"
+      className="cursor-move"
     >
       {children}
     </div>

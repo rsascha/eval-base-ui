@@ -1,8 +1,10 @@
+import { FastBackwardOutlined } from "@ant-design/icons";
 import { SortableList } from "./components/SortableList";
 
 function App() {
   return (
     <>
+      <FastBackwardOutlined />
       <SortableList.Root onChange={(e) => console.debug(e)}>
         <SortableList.Item id={0}>
           <>Item 1</>
