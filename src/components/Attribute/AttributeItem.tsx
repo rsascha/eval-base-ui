@@ -7,8 +7,6 @@ import { useAttributeData } from "./useAttributeData";
 
 type AttributeItemProps = {
   id: number;
-  title: string;
-  eye: boolean;
 };
 
 export function AttributeItem({ id }: AttributeItemProps) {

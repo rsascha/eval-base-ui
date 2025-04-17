@@ -18,7 +18,7 @@ export function Attribute() {
           <SortableList.Root onChange={({ ids }) => sortItems(ids)}>
             {items.map((item) => (
               <SortableList.Item key={item.id} id={item.id}>
-                <AttributeItem id={item.id} title={item.title} eye={item.eye} />
+                <AttributeItem id={item.id} />
               </SortableList.Item>
             ))}
           </SortableList.Root>
