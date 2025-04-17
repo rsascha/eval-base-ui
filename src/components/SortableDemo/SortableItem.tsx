@@ -1,15 +1,10 @@
+import { UniqueIdentifier } from "@dnd-kit/core";
 import { useSortable } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
-import { ReactNode } from "react";
 
-type ItemProps = {
-  sortableIndex?: number;
-  children: ReactNode;
-};
-
-export function Item({ sortableIndex = 0, children }: ItemProps) {
+export function SortableItem({ id }: { id: UniqueIdentifier }) {
   const { attributes, listeners, setNodeRef, transform, transition } =
-    useSortable({ id: sortableIndex });
+    useSortable({ id });
 
   const style = {
     transform: CSS.Transform.toString(transform),
@@ -18,7 +13,7 @@ export function Item({ sortableIndex = 0, children }: ItemProps) {
 
   return (
     <div ref={setNodeRef} style={style} {...attributes} {...listeners}>
-      {children} {sortableIndex}
+      Hallo {id}
     </div>
   );
 }
