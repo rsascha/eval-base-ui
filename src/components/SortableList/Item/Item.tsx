@@ -3,13 +3,20 @@ import { CSS } from "@dnd-kit/utilities";
 import { ReactElement, ReactNode } from "react";
 
 type ItemProps = {
-  sortableIndex: number;
+  id: number;
   children: ReactNode;
 };
 
-export function Item({ sortableIndex, children }: ItemProps) {
+/**
+ * Renders a div.
+ * @example
+ * <SortableList.Item id={5}>
+ *  <>Item 2</>
+ * </SortableList.Item>
+ */
+export function Item({ id, children }: ItemProps) {
   const { attributes, listeners, setNodeRef, transform, transition } =
-    useSortable({ id: sortableIndex });
+    useSortable({ id });
 
   const style = {
     transform: CSS.Transform.toString(transform),
@@ -17,8 +24,14 @@ export function Item({ sortableIndex, children }: ItemProps) {
   };
 
   return (
-    <div ref={setNodeRef} style={style} {...attributes} {...listeners}>
-      {children} {sortableIndex}
+    <div
+      ref={setNodeRef}
+      style={style}
+      {...attributes}
+      {...listeners}
+      className="cursor-pointer"
+    >
+      {children}
     </div>
   );
 }

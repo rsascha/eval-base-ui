@@ -1,28 +1,22 @@
 import { SortableList } from "./components/SortableList";
-import { SortableDemo } from "./components/SortableDemo/SortableDemo";
 
 function App() {
   return (
     <>
-      <SortableDemo />
-      <div>
-        <SortableList.Root>
-          <SortableList.Item sortableIndex={0}>
-            <div className="flex items-center gap-2">
-              <div>*</div>
-              <div>Item 1</div>
-              <div>XYZ</div>
-            </div>
-          </SortableList.Item>
-          <SortableList.Item sortableIndex={1}>
-            <div className="flex items-center gap-2">
-              <div>*</div>
-              <div>Item 1</div>
-              <div>XYZ</div>
-            </div>
-          </SortableList.Item>
-        </SortableList.Root>
-      </div>
+      <SortableList.Root onChange={(e) => console.debug(e)}>
+        <SortableList.Item id={0}>
+          <>Item 1</>
+        </SortableList.Item>
+        <SortableList.Item id={5}>
+          <>Item 2</>
+        </SortableList.Item>
+        <SortableList.Item id={2}>
+          <>Item 3</>
+        </SortableList.Item>
+        <SortableList.Item id={3}>
+          <>Item 4</>
+        </SortableList.Item>
+      </SortableList.Root>
     </>
   );
 }

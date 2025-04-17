@@ -13,18 +13,24 @@ import {
   sortableKeyboardCoordinates,
   verticalListSortingStrategy,
 } from "@dnd-kit/sortable";
-import { cloneElement, isValidElement, useState } from "react";
+import { cloneElement, isValidElement, useEffect, useState } from "react";
 import { ItemType } from "../Item";
 
 type MultiSelectRootProps = {
   children: ItemType[];
+  onChange?: ({ ids }: { ids: number[] }) => void;
 };
 
-export function Root({ children }: MultiSelectRootProps) {
-  const initSortableIndexItems = children.map((c) => c.props.sortableIndex);
-  const [sortableIndexItems, setSortableIndexItems] = useState(
-    initSortableIndexItems
-  );
+/**
+ * Renders Fragment of the sortable list.
+ * @example
+ * <SortableList.Root onChange={(e) => console.debug(e)}>
+ *  <SortableList.Item id={0}>
+ *   <>Item 1</>
+ */
+export function Root({ children, onChange }: MultiSelectRootProps) {
+  const initSortableIds = children.map((c) => c.props.id);
+  const [sortableIds, setSortableIds] = useState(initSortableIds);
   const sensors = useSensors(
     useSensor(PointerSensor),
     useSensor(KeyboardSensor, {
@@ -32,12 +38,17 @@ export function Root({ children }: MultiSelectRootProps) {
     })
   );
 
+  useEffect(() => {
+    if (!onChange) return;
+    onChange({ ids: sortableIds });
+  }, [onChange, sortableIds]);
+
   function handleDragEnd(event: DragEndEvent) {
     const { active, over } = event;
     if (!active) return;
     if (!over) return;
     if (active.id !== over.id) {
-      setSortableIndexItems((items) => {
+      setSortableIds((items) => {
         const oldIndex = items.indexOf(Number(active.id));
         const newIndex = items.indexOf(Number(over.id));
         return arrayMove(items, oldIndex, newIndex);
@@ -45,19 +56,12 @@ export function Root({ children }: MultiSelectRootProps) {
     }
   }
 
-  function getItemElement(sortableIndex: number) {
-    const child = children.find((c) => c.props.sortableIndex === sortableIndex);
+  function getItemElement(id: number) {
+    const child = children.find((c) => c.props.id === id);
     if (!child) return null;
     if (!isValidElement(child)) return null;
-    const elem = cloneElement(child, {
-      key: sortableIndex,
-      sortableIndex,
-    });
+    const elem = cloneElement(child, { key: id, id });
     return elem;
-  }
-
-  if (!children) {
-    return null;
   }
 
   return (
@@ -67,14 +71,10 @@ export function Root({ children }: MultiSelectRootProps) {
       onDragEnd={handleDragEnd}
     >
       <SortableContext
-        items={sortableIndexItems}
+        items={sortableIds}
         strategy={verticalListSortingStrategy}
       >
-        <div>
-          {sortableIndexItems.map((sortableIndex) =>
-            getItemElement(sortableIndex)
-          )}
-        </div>
+        <>{sortableIds.map((id) => getItemElement(id))}</>
       </SortableContext>
     </DndContext>
   );
