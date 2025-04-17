@@ -34,7 +34,11 @@ export function Root({ children, onChange }: MultiSelectRootProps) {
   const initSortableIds = children.map((c) => c.props.id);
   const [sortableIds, setSortableIds] = useState(initSortableIds);
   const sensors = useSensors(
-    useSensor(PointerSensor),
+    useSensor(PointerSensor, {
+      activationConstraint: {
+        distance: 5,
+      },
+    }),
     useSensor(KeyboardSensor, {
       coordinateGetter: sortableKeyboardCoordinates,
     })
@@ -42,8 +46,12 @@ export function Root({ children, onChange }: MultiSelectRootProps) {
 
   useEffect(() => {
     if (!onChange) return;
+    const isEqual =
+      sortableIds.length === initSortableIds.length &&
+      sortableIds.every((id, i) => id === initSortableIds[i]);
+    if (isEqual) return;
     onChange({ ids: sortableIds });
-  }, [onChange, sortableIds]);
+  }, [onChange, sortableIds, initSortableIds]);
 
   function handleDragEnd(event: DragEndEvent) {
     const { active, over } = event;
