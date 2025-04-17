@@ -1,4 +1,4 @@
-import { MultiSelect } from "./components/MultiSelect";
+import { SortableList } from "./components/SortableList";
 import { SortableDemo } from "./components/SortableDemo/SortableDemo";
 
 function App() {
@@ -6,22 +6,22 @@ function App() {
     <>
       <SortableDemo />
       <div>
-        <MultiSelect.Root>
-          <MultiSelect.Item>
+        <SortableList.Root>
+          <SortableList.Item>
             <div className="flex items-center gap-2">
               <div>*</div>
               <div>Item 1</div>
               <div>XYZ</div>
             </div>
-          </MultiSelect.Item>
-          <MultiSelect.Item>
+          </SortableList.Item>
+          <SortableList.Item>
             <div className="flex items-center gap-2">
               <div>*</div>
               <div>Item 1</div>
               <div>XYZ</div>
             </div>
-          </MultiSelect.Item>
-        </MultiSelect.Root>
+          </SortableList.Item>
+        </SortableList.Root>
       </div>
     </>
   );
